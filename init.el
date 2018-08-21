@@ -48,6 +48,7 @@ values."
      markdown
      emacs-lisp
      (c-c++ :variables
+            c-c++-enable-clang-format-on-save t
             c-c++-enable-clang-support t)
      ;; Emacs
      ; org
