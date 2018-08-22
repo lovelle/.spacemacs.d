@@ -54,6 +54,7 @@ values."
      ; org
      ;(typography :variables
      ;            typography-enable-typographic-editing t)
+     semantic
      (ibuffer :variables
               ibuffer-group-buffers-by 'projects)
      (better-defaults :variables
@@ -72,6 +73,7 @@ values."
      ;; Web services
      ; evernote
      ;; Tools
+     ; autohotkey
      tabbar
      imenu-list
      (shell :variables
@@ -98,7 +100,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(yasnippet-snippets)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -371,6 +373,11 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;(global-set-key (kbd "C-x n") 'diff-hl-next-hunk)
   ;(global-set-key (kbd "C-x p") 'diff-hl-previous-hunk)
 
+  (setq yas-snippet-dirs
+        '("~/.emacs.d/snippets"     ;; personal snippets
+          "~/.spacemacs.d/snippets" ;; personal snippets
+          "~/.emacs.d/elpa/yasnippet-snippets-20180714.1322/snippets"
+          ))
 )
 
 (defun dotspacemacs/user-config ()
@@ -393,6 +400,7 @@ you should place your code here."
   ;  )
   ;)
 
+  (global-company-mode)
 
   ;; Tabbar
   ; Windows style
@@ -414,7 +422,7 @@ you should place your code here."
   ;(global-set-key [(control shift tab)] 'shk-tabbar-prev)
   (global-set-key (kbd "M-º") 'shk-tabbar-next)
   (global-set-key (kbd "C-º") 'shk-tabbar-next)
-  ;(global-set-key [C-tab] 'shk-tabbar-prev)
+  (global-set-key [C-tab] 'shk-tabbar-next)
   ;(global-set-key [("C-iso-lefttab")] 'shk-tabbar-prev)
 )
 
@@ -428,7 +436,7 @@ you should place your code here."
  '(magit-log-arguments (quote ("--graph" "--color" "--decorate" "-n256")))
  '(package-selected-packages
    (quote
-    (tabbar ibuffer-projectile yaml-mode helm-gtags ggtags helm-cscope xcscope disaster company-c-headers cmake-mode clang-format lua-mode sql-indent xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help imenu-list smex company-quickhelp web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode company-anaconda anaconda-mode pythonic erlang unfill mwim flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck auto-dictionary mmm-mode markdown-toc markdown-mode gh-md git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl orgit magit-gitflow magit magit-popup ac-ispell smeargle helm-gitignore helm-company helm-c-yasnippet gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-commit fuzzy ghub let-alist with-editor company-statistics company-go company auto-yasnippet yasnippet auto-complete go-guru go-eldoc go-mode ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
+    (yasnippet-snippets powerline hydra parent-mode projectile pkg-info epl flx evil-magit smartparens iedit anzu evil goto-chg highlight bind-map bind-key packed f dash s helm avy helm-core async popup stickyfunc-enhance srefactor tabbar ibuffer-projectile yaml-mode helm-gtags ggtags helm-cscope xcscope disaster company-c-headers cmake-mode clang-format lua-mode sql-indent xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help imenu-list smex company-quickhelp web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode company-anaconda anaconda-mode pythonic erlang unfill mwim flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck auto-dictionary mmm-mode markdown-toc markdown-mode gh-md git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl orgit magit-gitflow magit magit-popup ac-ispell smeargle helm-gitignore helm-company helm-c-yasnippet gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-commit fuzzy ghub let-alist with-editor company-statistics company-go company auto-yasnippet yasnippet auto-complete go-guru go-eldoc go-mode ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
  '(tabbar-separator (quote (0.5))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
