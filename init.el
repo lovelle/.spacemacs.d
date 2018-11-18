@@ -87,7 +87,7 @@ values."
                       auto-completion-return-key-behavior 'complete
                       auto-completion-tab-key-behavior 'cycle
                       auto-completion-enable-snippets-in-popup t
-                      auto-completion-enable-sort-by-usage t
+                      ;auto-completion-enable-sort-by-usage t
                       auto-completion-enable-help-tooltip t)
      ;; Checkers
      syntax-checking
@@ -100,7 +100,11 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(yasnippet-snippets)
+   dotspacemacs-additional-packages '(yasnippet-snippets
+                                      irony
+                                      irony-eldoc
+                                      flycheck-irony
+                                      company-irony)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -172,16 +176,48 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(darkburn
-                         wombat
-                         spacemacs-dark
+   dotspacemacs-themes '(;darkburn
+                         ;wombat
+                         ;cyberpunk
+                         ;dakrone
+                         ;darkmine
+                         ;hemisu-dark ; good
+                         ;stekene-dark
+                         ;manoj-dark; good
+                         ;spacemacs-dark
+                         ;ir-black ; good
+                         ;twilight ; middle
+                         ;noctilux ; middle
+                         ;seti ; middle
+                         ;niflheim ; broken
+                         ;mustang ; good?
+                         ;spacegray ; good but broken for cli
+                         jbeans ; muy bueno
+                         ;material ; bueno raro / lento buggy
+                         ;obsidian
+                         ;sanityinc-tomorrow-eighties ; bueno
+                         sanityinc-tomorrow-night ; muy bueno
+                         ;smyx ; bueno
+                         ;twilight-anti-bright ; bueno
+                         ;jazz
+                         ;graham
+                         ;hickey ; bueno
+                         ujelly ; muy bueno - muy oscuro?
+                         ;planet ; bueno - cli malo
+                         ;odersky ; cli roto
+                         ;wilson ; maso
+                         ;afternoon cli roto
+
+                         ;ample ; bueno
+                         ample-flat
+                         tango-dark
                          spacemacs-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("DejaVu Sans Mono";"Source Code Pro"
-                               :size 13
+                               :size 11
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -307,7 +343,7 @@ values."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers t
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -367,6 +403,12 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; Helm grep ag
   (global-set-key (kbd "C-x g") 'helm-do-grep-ag)
 
+  ;(global-set-key (kbd "C-c ;") 'iedit-mode)
+  (global-set-key (kbd "C-c ;") 'evil-iedit-state)
+
+  ; imenu
+  ;(global-set-key (kbd "C-c -") 'imenu-list)
+
   ;; Jump between hunks
   (global-set-key (kbd "C-x n") (lambda () (interactive) (diff-hl-next-hunk) (recenter)))
   (global-set-key (kbd "C-x p") (lambda () (interactive) (diff-hl-previous-hunk) (recenter)))
@@ -400,7 +442,14 @@ you should place your code here."
   ;  )
   ;)
 
+  ;(global-auto-complete)
   (global-company-mode)
+
+  ;; Some magit hacks
+  ;(magit-add-section-hook 'magit-status-sections-hook
+  ;                        'magit-insert-unpulled-from-upstream-or-recent
+  ;                        'magit-insert-unpulled-from-upstream
+  ;                        'replace)
 
   ;; Tabbar
   ; Windows style
@@ -433,14 +482,27 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#080808" "#d70000" "#67b11d" "#875f00" "#268bd2" "#af00df" "#00ffff" "#b2b2b2"])
+ '(custom-safe-themes
+   (quote
+    ("7f9dc0c7bc8e5b4a1b9904359ee449cac91fd89dde6aca7a45e4ed2e4985664c" "4138944fbed88c047c9973f68908b36b4153646a045648a22083bd622d1e636d" "7feeed063855b06836e0262f77f5c6d3f415159a98a9676d549bfeb6c49637c4" "77bd459212c0176bdf63c1904c4ba20fce015f730f0343776a1a14432de80990" "c1fb68aa00235766461c7e31ecfc759aa2dd905899ae6d95097061faeb72f9ee" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "8ffdc8c66ceeaf7921f4510a70d808f01b303e6b4d177c947b442e80d4228678" "96998f6f11ef9f551b427b8853d947a7857ea5a578c75aa9c4e7c73fe04d10b4" "3cd28471e80be3bd2657ca3f03fbb2884ab669662271794360866ab60b6cb6e6" "9b59e147dbbde5e638ea1cde5ec0a358d5f269d27bd2b893a0947c4a867e14c1" "b3775ba758e7d31f3bb849e7c9e48ff60929a792961a2d536edec8f68c671ca5" "987b709680284a5858d5fe7e4e428463a20dfabe0a6f2a6146b3b8c7c529f08b" "3d5ef3d7ed58c9ad321f05360ad8a6b24585b9c49abcee67bdcbb0fe583a6950" "e0d42a58c84161a0744ceab595370cbe290949968ab62273aed6212df0ea94b4" default)))
+ '(evil-want-Y-yank-to-eol nil)
+ '(linum-format " %3i ")
  '(magit-log-arguments (quote ("--graph" "--color" "--decorate" "-n256")))
  '(package-selected-packages
    (quote
-    (yasnippet-snippets powerline hydra parent-mode projectile pkg-info epl flx evil-magit smartparens iedit anzu evil goto-chg highlight bind-map bind-key packed f dash s helm avy helm-core async popup stickyfunc-enhance srefactor tabbar ibuffer-projectile yaml-mode helm-gtags ggtags helm-cscope xcscope disaster company-c-headers cmake-mode clang-format lua-mode sql-indent xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help imenu-list smex company-quickhelp web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode company-anaconda anaconda-mode pythonic erlang unfill mwim flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck auto-dictionary mmm-mode markdown-toc markdown-mode gh-md git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl orgit magit-gitflow magit magit-popup ac-ispell smeargle helm-gitignore helm-company helm-c-yasnippet gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-commit fuzzy ghub let-alist with-editor company-statistics company-go company auto-yasnippet yasnippet auto-complete go-guru go-eldoc go-mode ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
+    (treepy graphql niflheim-theme stekene-theme ivy-rtags ivy google-c-style helm-rtags flycheck-rtags company-rtags rtags flycheck-irony irony-eldoc company-irony irony yasnippet-snippets powerline hydra parent-mode projectile pkg-info epl flx evil-magit smartparens iedit anzu evil goto-chg highlight bind-map bind-key packed f dash s helm avy helm-core async popup stickyfunc-enhance srefactor tabbar ibuffer-projectile yaml-mode helm-gtags ggtags helm-cscope xcscope disaster company-c-headers cmake-mode clang-format lua-mode sql-indent xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help imenu-list smex company-quickhelp web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode company-anaconda anaconda-mode pythonic erlang unfill mwim flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck auto-dictionary mmm-mode markdown-toc markdown-mode gh-md git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl orgit magit-gitflow magit magit-popup ac-ispell smeargle helm-gitignore helm-company helm-c-yasnippet gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-commit fuzzy ghub let-alist with-editor company-statistics company-go company auto-yasnippet yasnippet auto-complete go-guru go-eldoc go-mode ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
  '(tabbar-separator (quote (0.5))))
+;(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ ;'(default ((t (:foreground "#DCDCCC" :background "#111111")))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:background nil)))))
