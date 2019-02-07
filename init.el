@@ -31,6 +31,9 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     ruby
+     ruby-on-rails
+     javascript
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -48,8 +51,9 @@ values."
      markdown
      emacs-lisp
      (c-c++ :variables
-            c-c++-enable-clang-format-on-save t
-            c-c++-enable-clang-support t)
+            c-c++-enable-clang-support t
+            c-c++-default-mode-for-headers 'c++-mode
+            c-c++-enable-clang-format-on-save t)
      ;; Emacs
      ; org
      ;(typography :variables
@@ -192,6 +196,8 @@ values."
                          ;niflheim ; broken
                          ;mustang ; good?
                          ;spacegray ; good but broken for cli
+                         ; gandalf - day
+                         ; adwaita - day
                          jbeans ; muy bueno
                          ;material ; bueno raro / lento buggy
                          ;obsidian
@@ -484,6 +490,8 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#080808" "#d70000" "#67b11d" "#875f00" "#268bd2" "#af00df" "#00ffff" "#b2b2b2"])
+ '(blink-cursor-mode nil)
+ '(column-number-mode t)
  '(custom-safe-themes
    (quote
     ("7f9dc0c7bc8e5b4a1b9904359ee449cac91fd89dde6aca7a45e4ed2e4985664c" "4138944fbed88c047c9973f68908b36b4153646a045648a22083bd622d1e636d" "7feeed063855b06836e0262f77f5c6d3f415159a98a9676d549bfeb6c49637c4" "77bd459212c0176bdf63c1904c4ba20fce015f730f0343776a1a14432de80990" "c1fb68aa00235766461c7e31ecfc759aa2dd905899ae6d95097061faeb72f9ee" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "8ffdc8c66ceeaf7921f4510a70d808f01b303e6b4d177c947b442e80d4228678" "96998f6f11ef9f551b427b8853d947a7857ea5a578c75aa9c4e7c73fe04d10b4" "3cd28471e80be3bd2657ca3f03fbb2884ab669662271794360866ab60b6cb6e6" "9b59e147dbbde5e638ea1cde5ec0a358d5f269d27bd2b893a0947c4a867e14c1" "b3775ba758e7d31f3bb849e7c9e48ff60929a792961a2d536edec8f68c671ca5" "987b709680284a5858d5fe7e4e428463a20dfabe0a6f2a6146b3b8c7c529f08b" "3d5ef3d7ed58c9ad321f05360ad8a6b24585b9c49abcee67bdcbb0fe583a6950" "e0d42a58c84161a0744ceab595370cbe290949968ab62273aed6212df0ea94b4" default)))
@@ -492,8 +500,9 @@ you should place your code here."
  '(magit-log-arguments (quote ("--graph" "--color" "--decorate" "-n256")))
  '(package-selected-packages
    (quote
-    (treepy graphql niflheim-theme stekene-theme ivy-rtags ivy google-c-style helm-rtags flycheck-rtags company-rtags rtags flycheck-irony irony-eldoc company-irony irony yasnippet-snippets powerline hydra parent-mode projectile pkg-info epl flx evil-magit smartparens iedit anzu evil goto-chg highlight bind-map bind-key packed f dash s helm avy helm-core async popup stickyfunc-enhance srefactor tabbar ibuffer-projectile yaml-mode helm-gtags ggtags helm-cscope xcscope disaster company-c-headers cmake-mode clang-format lua-mode sql-indent xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help imenu-list smex company-quickhelp web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode company-anaconda anaconda-mode pythonic erlang unfill mwim flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck auto-dictionary mmm-mode markdown-toc markdown-mode gh-md git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl orgit magit-gitflow magit magit-popup ac-ispell smeargle helm-gitignore helm-company helm-c-yasnippet gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-commit fuzzy ghub let-alist with-editor company-statistics company-go company auto-yasnippet yasnippet auto-complete go-guru go-eldoc go-mode ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
- '(tabbar-separator (quote (0.5))))
+    (projectile-rails inflections feature-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby adwait-theme web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern tern coffee-mode spinner undo-tree treepy graphql niflheim-theme stekene-theme ivy-rtags ivy google-c-style helm-rtags flycheck-rtags company-rtags rtags flycheck-irony irony-eldoc company-irony irony yasnippet-snippets powerline hydra parent-mode projectile pkg-info epl flx evil-magit smartparens iedit anzu evil goto-chg highlight bind-map bind-key packed f dash s helm avy helm-core async popup stickyfunc-enhance srefactor tabbar ibuffer-projectile yaml-mode helm-gtags ggtags helm-cscope xcscope disaster company-c-headers cmake-mode clang-format lua-mode sql-indent xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help imenu-list smex company-quickhelp web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode company-anaconda anaconda-mode pythonic erlang unfill mwim flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck auto-dictionary mmm-mode markdown-toc markdown-mode gh-md git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl orgit magit-gitflow magit magit-popup ac-ispell smeargle helm-gitignore helm-company helm-c-yasnippet gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-commit fuzzy ghub let-alist with-editor company-statistics company-go company auto-yasnippet yasnippet auto-complete go-guru go-eldoc go-mode ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
+ '(tabbar-separator (quote (0.5)))
+ '(tool-bar-mode nil))
 ;(custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -505,4 +514,4 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:background nil)))))
+ '(default ((t (:background nil :family "DejaVu Sans Mono" :foundry "unknown" :slant normal :weight normal :height 83 :width normal)))))
